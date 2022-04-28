@@ -55,15 +55,10 @@ plt.imshow(new_data_buffered[:-1], cmap='gray')
 plt.title('Image_shifted')
 plt.savefig("2laba/image_shifted.png")
 
-min = 0
-max = 0
+telemetry_array = new_data_buffered[400:900, 2650:2750]
 
-for j in range(400, 900):
-      for i in range(2650, 2750):
-        if new_data_buffered[j][i] > max:
-            max = new_data_buffered[j][i]
-        if new_data_buffered[j][i] < min:
-            min = new_data_buffered[j][i]
+min = np.min(telemetry_array)
+max = np.max(telemetry_array)
 
 convert = np.polyfit([min, max], [0, 1], 1)
 
