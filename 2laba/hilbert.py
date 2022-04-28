@@ -83,6 +83,12 @@ plt.imshow(new_data_buffered[:-1], cmap='gray')
 plt.title('Image_shifted_normalized')
 plt.savefig("2laba/image_shifted_normalized.png")
 
+plt.figure()
+# Последний элемент убираем, потому что он (может быть) заполнен не полностью
+plt.imshow(new_data_buffered[:-1], cmap='cividis')
+plt.title('Image_shifted_normalized_color')
+plt.savefig("2laba/image_shifted_normalized_color.png")
+
 resistors = []
 vert = 2700
 hor = 550
@@ -122,17 +128,17 @@ for i in range(4):
         temp = temp + prt[i][j]*pow(c_arr[i], j)
     T.append(temp)
 
-print(f"Temperatures of resistors {T}")
+print(f"Temperatures of resistors {T} K")
 
 T_bb = np.mean(T)
 
-print(f"Temperature of black body {T_bb}")
+print(f"Temperature of black body {T_bb:.3f} K")
 
 A, B = 1.67396, 0.997364
 
 T_bb_shtrih = A + B*T_bb
 
-print(f"Effective temp of BB {T_bb_shtrih}")
+print(f"Effective temp of BB {T_bb_shtrih:.3f} K")
 
 u_e, u_c = 2670, 2670
 
@@ -140,16 +146,16 @@ c1, c2 = 1.1910427*pow(10, -5), 1.4387752
 
 N_bb = (c1*u_e**3)/(np.exp((c2*u_c/T_bb_shtrih)) - 1)
 
-print(f"N_bb {N_bb}")
+print(f"N_bb {N_bb:.3f}")
 
 N_e = N_bb * (c_s - c_e) / (c_s - c_bb)
 
-print(f"N_e {N_e}")
+print(f"N_e  {N_e:.3f}")
 
 T_e_shtrih = (c2*u_c)/np.log(1+((c1*(u_c**3))/(N_e)))
 
-print(f"T*e {T_e_shtrih}")
+print(f"T*e  {T_e_shtrih:.3f} K")
 
 T_e = (T_e_shtrih - A)/B
 
-print(f"Temperature of pixel at [{x}][{y}] {T_e} K")
+print(f"Temperature of pixel at ({x}, {y}) {T_e:.3f} K")
