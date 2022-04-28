@@ -65,12 +65,14 @@ for j in range(400, 900):
         if new_data_buffered[j][i] < min:
             min = new_data_buffered[j][i]
 
-k = 1/(max-min)
-b = -min/(max-min)
+convert = np.polyfit([min, max], [0, 1], 1)
+
+# k = 1/(max-min)
+# b = -min/(max-min)
 
 for i in range(np.shape(new_data_buffered)[0]):
     for j in range(np.shape(new_data_buffered)[1]):
-        new_data_buffered[i][j] = k*new_data_buffered[i][j] + b;
+        new_data_buffered[i][j] = np.polyval(convert, new_data_buffered[i][j])
 
         if new_data_buffered[i][j] >= 1:
             new_data_buffered[i][j] = 1
@@ -95,17 +97,19 @@ plt.plot(resistors[13:])
 plt.title('Gradient')
 plt.savefig("2laba/telemetry.png")
 
+el = 13
+
 c_arr = []
 
 for i in range (4):
-    c_arr.append(resistors[13 + 9 + i])
+    c_arr.append(resistors[el + 9 + i])
 
 ## pixel coords
 x, y = 600, 1600
 
 c_s = new_data_buffered[600][133]*255
 c_e = new_data_buffered[x][y]*255
-c_bb = resistors[13+15]
+c_bb = resistors[el+15]
 
 prt_1 = [276.6067, 0.051111, 1.405783*pow(10, -6), 0, 0]
 prt_2 = [276.6119, 0.051090, 1.496037*pow(10, -6), 0, 0]
