@@ -67,9 +67,6 @@ for j in range(400, 900):
 
 convert = np.polyfit([min, max], [0, 1], 1)
 
-# k = 1/(max-min)
-# b = -min/(max-min)
-
 for i in range(np.shape(new_data_buffered)[0]):
     for j in range(np.shape(new_data_buffered)[1]):
         new_data_buffered[i][j] = np.polyval(convert, new_data_buffered[i][j])
